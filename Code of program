@@ -1,0 +1,22 @@
+# Import pandas for dataframe 
+import pandas as pd 
+
+# Import train_rel_2.tsv into Python
+with open('train_rel_2.tsv', 'r') as f:
+    lines = f.readlines()
+    columns = lines[0].split('\t')
+    response = []
+    score = []
+    for line in lines[1:]:
+        temp = line.split('\t') 
+        if temp[1] == '3':   # Select the Essay Set 3
+            response.append(temp[-1])  # Select EssayText as response
+            score.append(int(temp[2])) # Select score1 for human scoring only
+        else: 
+            None
+# Construct a dataframe ("data") which includes response and score column     
+data = pd.DataFrame(list(zip(response, score))) 
+data.columns = ['response', 'score'] 
+
+# Print how many rows and columns of the data set consists  
+print(data.shape)
